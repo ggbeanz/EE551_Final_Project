@@ -24,5 +24,25 @@ This dataset has information on:
 - Original broadcast language
 - Additional data
 
---
 ## Program Structure
+### Project Layout
+tv-show-recommender/
+├── README.md                 # This file    <br/>
+├── requirements.txt          # Python dependencies  <br/>
+├── data/                     # Dataset directory    <br/>
+│   └── tv_shows_dataset.csv  <br/>
+├── src/                      # Source code modules  <br/>
+│   ├── __init__.py  <br/>
+│   ├── tv_show.py           # TVShow class  <br/>
+│   ├── show_recommender.py  # ShowRecommender class  <br/>
+│   └── data_processor.py    # Data processing functions  <br/>
+├── tests/                    # Test files  <br/>
+│   ├── __init__.py  <br/>
+│   └── test_recommender.py  <br/>
+└── notebooks/  <br/>
+    └── main.ipynb           # Main Jupyter Notebook program  <br/>
+
+## Core Components
+
+#### 1- **TVShow Class**
+This class stores information about individual TV Shows. It includes the attributes: title, genre, episodes, rating, and language. This is the method 
