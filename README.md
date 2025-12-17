@@ -1,6 +1,7 @@
 # TV Show Decision Maker
 
 ## Course
+## for test
 EE551- Engineering Programming: Python
 
 ## Team Members
@@ -46,3 +47,18 @@ tv-show-recommender/
 
 #### 1- **TVShow Class**
 This class stores information about individual TV Shows. It includes the attributes: title, genre, episodes, rating, and language. This is the method 
+
+## Using The Kaggle TMDB Dataset (Local File)
+The Kaggle TMDB CSV is large, so this repo does not store it in `git`. Keep the dataset on your machine and pass its path when loading.
+
+### Preview Loader (Quick Check)
+From the repo root:
+
+1) `cd tv-show-recommender`
+2) Run the preview script:
+
+`python load_preview.py --csv "C:\\Users\\91940\\Downloads\\archive\\TMDB_tv_dataset_v3.csv" --limit 1000 --show 10`
+
+### Programmatic Loading
+Use the TMDB loader in `tv-show-recommender/src/data_processor.py`:
+- `load_tv_shows_from_tmdb_csv(file_path, limit=1000)`
