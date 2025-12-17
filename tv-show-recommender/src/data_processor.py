@@ -8,7 +8,7 @@ rows into TVShow objects that can be used by the ShowRecommender class.
 import csv
 from typing import List
 
-from tv_show import TVShow
+from .tv_show import TVShow
 
 
 def load_tv_shows_from_csv(file_path: str) -> List[TVShow]:

@@ -8,14 +8,10 @@ filtering and recommendation logic behaves as expected.
 import sys
 import os
 import pytest
-sys.path.append(
-    os.path.abspath(
-        os.path.join(os.path.dirname(__file__), "../src")
-    )
-)
 
-from tv_show import TVShow
-from show_recommender import ShowRecommender
+
+from src.tv_show import TVShow
+from src.show_recommender import ShowRecommender
 
 
 @pytest.fixture
