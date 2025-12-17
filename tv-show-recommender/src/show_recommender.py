@@ -2,8 +2,8 @@
 defines that ShowRecommender class. This manages TV shows and provides filtering and recommendations
 based on the user preferences.
 """
-
-from .tv_show import TVShow
+#updated this from tv_show ... to src.tv_show ...
+from src.tv_show import TVShow
 
 
 class ShowRecommender:
