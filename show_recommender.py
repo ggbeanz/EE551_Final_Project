@@ -7,7 +7,7 @@ from tv_show import TVShow
 class ShowRecommender:
     """This class manages the collection of TV shows and provides recommendations. It uses composition 
     since it has multiple TVShow objects and it provides methods to filter and recommend shows based 
-    on the user standards. For the final project this class will hold all of the shows from the fataset 
+    on the user standards. For the final project this class will hold all of the shows from the dataset 
     and it will let users find their next show to watch."""
 
     def __init__(self):
@@ -34,7 +34,7 @@ class ShowRecommender:
 
     def get_total_shows(self):
         """This returns the total number of shows that are in the collection. This is good for 
-        showing statistics to the ser about how many shows are available in the dataset. This returns 
+        showing statistics to the user about how many shows are available in the dataset. This returns 
         an int."""
         return len(self.shows)
     
@@ -54,7 +54,7 @@ class ShowRecommender:
     
     def filter_by_episodes(self, min_episodes = None, max_episodes = None):
         """This filters TV shows by their number of episodes by minimum, maximum, or both. This is 
-        useful when users what to find a shorter show or a longer show depending on their preferences. 
+        useful when users want to find a shorter show or a longer show depending on their preferences. 
         This returns a list of TV show objects that are within the episode range."""
         #start with all shows
         filtered_shows = self.shows
@@ -72,7 +72,7 @@ class ShowRecommender:
     def filter_by_language(self, language):
         """This filters the shows by language. This returns the list of TVShow objects in the specific 
         language."""
-        #uses list comprehension with that is case-insensitive
+        #uses list comprehension that is case-insensitive
         return [show for show in self.shows if show.language.lower() == language.lower()]
     
     def get_recommendations(self, genre = None, min_rating = None, min_episodes = None, 
@@ -115,7 +115,7 @@ class ShowRecommender:
     def get_top_rated_shows(self, n = 10):
         """This gets the top N highest rated shows. The number of shows to return defaults to 10. This will return a list of the top N highest 
         rated TVShow objects."""
-        #short shows by highest rating first using the TVShow's comparison operator
+        #sort shows by highest rating first using the TVShow's comparison operator
         sorted_shows = sorted(self.shows, reverse=True)
         #return only top N shows
         return sorted_shows[:n]
@@ -175,7 +175,8 @@ class ShowRecommender:
         return f"ShowRecommender(shows = {len(self.shows)})"
         
 
-
+"""
+#delete the docstring quotes to run the test code
 #test examples
 if __name__ == "__main__":
     #make recommender
@@ -255,6 +256,6 @@ if __name__ == "__main__":
     print("All available genres:")
     genres = recommender.get_all_genres()
     print(f"  {', '.join(genres)}")
-
+"""
 
 
