@@ -16,16 +16,17 @@ class TVShow:
         """This makes the TVShow object. This includes the show title (title), genre or
         genres (genre), the number of episodes (num_episodes), the average user rating
         (avg_rating), the language of the show which defaults to English (language), and
-        the year the show came out which defaults to None. This raises a ValueError if
-        the rating is not between 0 and 10. A Valueerror is also raised if the number of
-        episodes is a negative number.
+        the year the show came out which defaults to None.
+
+        This raises a ValueError if the rating is not between 0 and 10. A ValueError is
+        also raised if the number of episodes is a negative number.
         """
 
         # validate inputs
         if not 0 <= avg_rating <= 10:
             raise ValueError("Rating must be between 0 and 10.")
         if num_episodes < 0:
-            raise ValueError("Number of episodes canno be a negative number.")
+            raise ValueError("Number of episodes cannot be a negative number.")
 
         self.title = title
         self.genre = genre if isinstance(genre, list) else [genre]

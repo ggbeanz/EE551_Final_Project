@@ -5,6 +5,13 @@ and preparing TV show data from a CSV file. It converts raw dataset
 rows into TVShow objects that can be used by the ShowRecommender class.
 """
 
+# This module supports two CSV formats:
+# 1) A simple/cleaned project CSV with columns like title/genre/episodes/rating/year.
+# 2) The Kaggle TMDB TV dataset (v3) with columns like name/genres/number_of_episodes/vote_average.
+#
+# Both loaders are defensive: they skip rows with missing/invalid numeric data so the program
+# continues to run even if the dataset has inconsistencies.
+
 import csv
 from typing import List, Optional
 
@@ -26,28 +33,28 @@ def load_tv_shows_from_csv(file_path: str) -> List[TVShow]:
         List[TVShow]: A list of TVShow objects created from the dataset.
     """
 
-    # list that will store all valid TVShow objects
+    # List that will store all valid TVShow objects.
     tv_shows = []
 
     try:
-        # open the CSV file safely
+        # Open the CSV file safely.
         with open(file_path, mode="r", encoding="utf-8") as csv_file:
             reader = csv.DictReader(csv_file)
 
-            # loop through each row in the dataset
+            # Loop through each row in the dataset.
             for row in reader:
                 try:
-                    # extract and clean string fields
+                    # Extract and clean string fields.
                     title = row.get("title", "").strip()
                     language = row.get("language", "").strip()
 
-                    # genre can be stored as a string or list-like format
+                    # Genre can be stored as a string or list-like format.
                     genre = row.get("genre", "")
                     if isinstance(genre, str):
                         # split genres if they are comma-separated
                         genre = [g.strip() for g in genre.split(",") if g.strip()]
 
-                    # convert numeric values safely
+                    # Convert numeric values safely.
                     num_episodes = int(row.get("episodes", 0))
                     avg_rating = float(row.get("rating", 0))
                     year = int(row.get("year", 0))
@@ -66,11 +73,11 @@ def load_tv_shows_from_csv(file_path: str) -> List[TVShow]:
                     tv_shows.append(show)
 
                 except (ValueError, TypeError):
-                    # skip rows with invalid numeric data
+                    # Skip rows with invalid numeric data.
                     continue
 
     except FileNotFoundError:
-        # raise a clear error if dataset is missing
+        # Raise a clear error if dataset is missing.
         raise FileNotFoundError(f"CSV file not found at: {file_path}")
 
     # return the fully processed list of TVShow objects
@@ -105,19 +112,24 @@ def load_tv_shows_from_tmdb_csv(file_path: str, limit: Optional[int] = 1000) -> 
             reader = csv.DictReader(csv_file)
 
             for row in reader:
+                # Stop once we have loaded the requested number of valid rows.
                 if max_valid is not None and len(tv_shows) >= max_valid:
                     break
 
                 try:
+                    # Map TMDB column names into our TVShow fields.
                     title = (row.get("name") or "").strip()
                     language = (row.get("original_language") or "").strip()
 
+                    # TMDB stores genres as a comma-separated string; split into a list.
                     genres_raw = (row.get("genres") or "").strip()
                     genre = [g.strip() for g in genres_raw.split(",") if g.strip()]
 
+                    # Convert numeric values required by TVShow.
                     num_episodes = int(row.get("number_of_episodes") or 0)
                     avg_rating = float(row.get("vote_average") or 0)
 
+                    # Convert first air date (YYYY-MM-DD) into a year integer.
                     first_air_date = (row.get("first_air_date") or "").strip()
                     year = int(first_air_date[:4]) if len(first_air_date) >= 4 else None
 
@@ -133,6 +145,7 @@ def load_tv_shows_from_tmdb_csv(file_path: str, limit: Optional[int] = 1000) -> 
                     tv_shows.append(show)
 
                 except (ValueError, TypeError):
+                    # Skip any invalid row (bad numbers or missing data).
                     continue
 
     except FileNotFoundError:

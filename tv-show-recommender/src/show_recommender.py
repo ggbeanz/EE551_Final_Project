@@ -9,7 +9,7 @@ from .tv_show import TVShow
 class ShowRecommender:
     """This class manages the collection of TV shows and provides recommendations. It uses composition
     since it has multiple TVShow objects and it provides methods to filter and recommend shows based
-    on the user standards. For the final project this class will hold all of the shows from the fataset
+    on the user standards. For the final project this class will hold all of the shows from the dataset
     and it will let users find their next show to watch.
     """
 
@@ -39,7 +39,7 @@ class ShowRecommender:
 
     def get_total_shows(self):
         """This returns the total number of shows that are in the collection. This is good for
-        showing statistics to the ser about how many shows are available in the dataset. This returns
+        showing statistics to the user about how many shows are available in the dataset. This returns
         an int.
         """
         return len(self.shows)
@@ -191,9 +191,9 @@ class ShowRecommender:
         }
 
     def __str__(self):
-        # This returns a string representation of the recommender
+        """Return a user-friendly string representation of the recommender."""
         return f"ShowRecommender with {len(self.shows)} shows"
-
+    
     def __repr__(self):
-        # This returns a technical string representation thats good for debugging
+        """Return a technical string representation useful for debugging."""
         return f"ShowRecommender(shows = {len(self.shows)})"
