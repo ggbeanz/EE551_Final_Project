@@ -6,7 +6,7 @@ rows into TVShow objects that can be used by the ShowRecommender class.
 """
 
 import csv
-from typing import List
+from typing import List, Optional
 
 from .tv_show import TVShow
 
@@ -74,4 +74,68 @@ def load_tv_shows_from_csv(file_path: str) -> List[TVShow]:
         raise FileNotFoundError(f"CSV file not found at: {file_path}")
 
     # return the fully processed list of TVShow objects
+    return tv_shows
+
+
+def load_tv_shows_from_tmdb_csv(file_path: str, limit: Optional[int] = 1000) -> List[TVShow]:
+    """
+    Load TV show data from the Kaggle TMDB TV dataset (v3) CSV file and convert each
+    valid row into a TVShow object.
+
+    Expected TMDB columns:
+        - name -> title
+        - genres -> genre (comma-separated string)
+        - number_of_episodes -> num_episodes
+        - vote_average -> avg_rating
+        - original_language -> language
+        - first_air_date -> year (YYYY extracted from YYYY-MM-DD)
+
+    Args:
+        file_path (str): Path to the TMDB CSV dataset file.
+        limit (Optional[int]): Max number of valid rows to load. Use None for no limit.
+
+    Returns:
+        List[TVShow]: List of TVShow objects loaded from the dataset.
+    """
+    tv_shows: List[TVShow] = []
+    max_valid = None if limit is None else max(0, int(limit))
+
+    try:
+        with open(file_path, mode="r", encoding="utf-8") as csv_file:
+            reader = csv.DictReader(csv_file)
+
+            for row in reader:
+                if max_valid is not None and len(tv_shows) >= max_valid:
+                    break
+
+                try:
+                    title = (row.get("name") or "").strip()
+                    language = (row.get("original_language") or "").strip()
+
+                    genres_raw = (row.get("genres") or "").strip()
+                    genre = [g.strip() for g in genres_raw.split(",") if g.strip()]
+
+                    num_episodes = int(row.get("number_of_episodes") or 0)
+                    avg_rating = float(row.get("vote_average") or 0)
+
+                    first_air_date = (row.get("first_air_date") or "").strip()
+                    year = int(first_air_date[:4]) if len(first_air_date) >= 4 else None
+
+                    show = TVShow(
+                        title=title,
+                        genre=genre,
+                        num_episodes=num_episodes,
+                        avg_rating=avg_rating,
+                        language=language,
+                        year=year,
+                    )
+
+                    tv_shows.append(show)
+
+                except (ValueError, TypeError):
+                    continue
+
+    except FileNotFoundError:
+        raise FileNotFoundError(f"CSV file not found at: {file_path}")
+
     return tv_shows
