@@ -111,6 +111,10 @@ Follow the requirements.txt file to make sure you have all of the necessities
 - Step 2- on the main.ipynb file in Jupyter Notebook make sure to change what is explicitly stated (ex- filepath)
 - Step 3- the main.ipynb file should run and provide a working TV Show Decider
 
+## Main Contributions
+Gianna Adamo: requirements.txt, tv_show.py, show_recommender, revised main.ipynb code to get it to run, a few PyTests, updates on README file
+Siddhant Khairnar: data_processor, code for main.ipynb, majority of pyTests on test_recommender, README file, formatted and organized main branch on Github.
 
+The above tasks were completed in multiple meaningful commits.
 
 **"I pledge my honor that I have abided by the Stevens Honor System."**
