@@ -1,7 +1,6 @@
 # TV Show Decision Maker
 
 ## Course
-## for test
 EE551- Engineering Programming: Python
 
 ## Team Members
@@ -25,6 +24,8 @@ This dataset has information on:
 - Original broadcast language
 - Additional data
 
+**Note:** This dataset was too large to upload to the GitHub so it has to be downloaded it from the provided link as a CSV. Make sure it is in the proper file path on your computer (it belongs in the data folder when you are testing the code).
+
 ## Program Structure
 ### Project Layout
 tv-show-recommender/
@@ -45,20 +46,71 @@ tv-show-recommender/
 
 ## Core Components
 
-#### 1- **TVShow Class**
-This class stores information about individual TV Shows. It includes the attributes: title, genre, episodes, rating, and language. This is the method 
+#### 1- **TVShow Class** ('src/tv_show.py')
+This class stores information about individual TV Shows with their attributes and methods. 
+**Attributes:**
+- 'title' (str)- Show title
+- 'genre' (list)- List of genres
+- 'num_episodes' (int)- Total number of episodes
+- 'avg_rating' (float)- Average rating (between 0-10)
+- 'language' (str)- Original language
+- 'year' (int)- Year the episode first aired
 
-## Using The Kaggle TMDB Dataset (Local File)
-The Kaggle TMDB CSV is large, so this repo does not store it in `git`. Keep the dataset on your machine and pass its path when loading.
+**Key Methods**
+- '__str__()', '__repr__()': string representations
+- '__eq__()', '__lt__()', '__gt__()', '__le__()', '__ge__()': comparison operators
+- 'matches_genre()': checks if the show matches a genre
+- 'is_highly_rated()': checks if the show meets the rating threshold
+- 'get_info_dict()': converts to a dictionary
 
-### Preview Loader (Quick Check)
-From the repo root:
+#### 2- **ShowRecommender Class** ('src/show_recommender.py')
+This class manages the TV shows and provides filtering and recommendation functionality
+**Relationship:** Uses composition with TVShow objects
 
-1) `cd tv-show-recommender`
-2) Run the preview script:
+**Key Methods**
+- `add_show()`- Add single show with validation
+- `add_shows_from_list()`- Bulk-add shows from dataset
+- `filter_by_genre()`- Filter by genre using lambda
+- `filter_by_rating()`- Filter by minimum rating
+- `filter_by_episodes()`- Filter by range of episodes
+- `filter_by_language()`- Filter by language
+- `get_recommendations()`- Multi-criteria recommendation
+- `get_top_rated_shows()`: Get highest-rated shows
+- `search_by_title()`: Search shows by title
+- `get_all_genres()`: List all available genres
+- `get_statistic()`: Get collection statistics
 
-`python load_preview.py --csv "C:\\Users\\91940\\Downloads\\archive\\TMDB_tv_dataset_v3.csv" --limit 1000 --show 10`
+#### 3- **Data Processing** ('src/data_processor.py')
+This handles the loading, cleaning, and processing of the CSV Dataset
 
-### Programmatic Loading
-Use the TMDB loader in `tv-show-recommender/src/data_processor.py`:
-- `load_tv_shows_from_tmdb_csv(file_path, limit=1000)`
+**Key Functions:**
+- `load_data_from_csv()`- Loads the CSV with exception handling
+- `clean_data()`- Handles missing values and formats data
+- `extract_genres()`- Extracts the genre information
+- `extract_year()`- Extracts the broadcast year from date strings
+- `create_tvshow_objects()`- Converts the DataFrame rows to TVShow objects
+- `load_and_process_data()`- Function that loads and processes the data
+
+#### 4- **Main Program** ('notebooks/main.ipynb')
+This is a Jupyter notebook file that serves as the user interface.
+**Features:**
+- Loads the dataset from the CSV
+- Asks users for TV Show preferences (genre, episodes, language, rating)
+- Displays the personalized recommendations
+- Visualizes data using Matplotlib
+- Shows the statistics about the collection
+
+
+## Installation and Setup
+
+### Prerequisites
+Follow the requirements.txt file to make sure you have all of the necessities
+
+## How to Use the Program
+- Step 1- make sure all files are downloaded in the proper path structure
+- Step 2- on the main.ipynb file in Jupyter Notebook make sure to change what is explicitly stated (ex- filepath)
+- Step 3- the main.ipynb file should run and provide a working TV Show Decider
+
+
+
+**"I pledge my honor that I have abided by the Stevens Honor System."**
