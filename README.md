@@ -44,5 +44,59 @@ tv-show-recommender/
 
 ## Core Components
 
-#### 1- **TVShow Class**
-This class stores information about individual TV Shows. It includes the attributes: title, genre, episodes, rating, and language. This is the method 
+#### 1- **TVShow Class** ('src/tv_show.py')
+This class stores information about individual TV Shows with their attributes and methods. 
+**Attributes:**
+- 'title' (str)- Show title
+- 'genre' (list)- List of genres
+- 'num_episodes' (int)- Total number of episodes
+- 'avg_rating' (float)- Average rating (between 0-10)
+- 'language' (str)- Original language
+- 'year' (int)- Year the episode first aired
+
+**Key Methods**
+- '__str__()', '__repr__()': string representations
+- '__eq__()', '__lt__()', '__gt__()', '__le__()', '__ge__()': comparison operators
+- 'matches_genre()': checks if the show matches a genre
+- 'is_highly_rated()': checks if the show meets the rating threshold
+- 'get_info_dict()': converts to a dictionary
+
+#### 2- **ShowRecommender Class** ('src/show_recommender.py')
+This class manages the TV shows and provides filtering and recommendation functionality
+**Relationship:** Uses composition with TVShow objects
+
+**Key Methods**
+- `add_show()`- Add single show with validation
+- `add_shows_from_list()`- Bulk-add shows from dataset
+- `filter_by_genre()`- Filter by genre using lambda
+- `filter_by_rating()`- Filter by minimum rating
+- `filter_by_episodes()`- Filter by range of episodes
+- `filter_by_language()`- Filter by language
+- `get_recommendations()`- Multi-criteria recommendation
+- `get_top_rated_shows()`: Get highest-rated shows
+- `search_by_title()`: Search shows by title
+- `get_all_genres()`: List all available genres
+- `get_statistic()`: Get collection statistics
+
+#### 3- **Data Processing** ('src/data_processor.py')
+This handles the loading, cleaning, and processing of the CSV Dataset
+
+**Key Functions:**
+- `load_data_from_csv()`- Loads the CSV with exception handling
+- `clean_data()`- Handles missing values and formats data
+- `extract_genres()`- Extracts the genre information
+- `extract_year()`- Extracts the broadcast year from date strings
+- `create_tvshow_objects()`- Converts the DataFrame rows to TVShow objects
+- `load_and_process_data()`- Function that loads and processes the data
+
+#### 4- **Main Program** ('notebooks/main.ipynb')
+This is a Jupyter notebook file that serves as the user interface.
+**Features:**
+- Loads the dataset from the CSV
+- Asks users for TV Show preferences (genre, episodes, language, rating)
+- Displays the personalized recommendations
+- Visualizes data using Matplotlib
+- Shows the statistics about the collection
+
+##Installation and Setup
+
