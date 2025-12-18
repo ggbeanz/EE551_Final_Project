@@ -24,6 +24,8 @@ This dataset has information on:
 - Original broadcast language
 - Additional data
 
+**Note:** This dataset was too large to upload to the GitHub so it has to be downloaded it from the provided link as a CSV. Make sure it is in the proper file path on your computer (it belongs in the data folder when you are testing the code).
+
 ## Program Structure
 ### Project Layout
 tv-show-recommender/
@@ -98,5 +100,17 @@ This is a Jupyter notebook file that serves as the user interface.
 - Visualizes data using Matplotlib
 - Shows the statistics about the collection
 
-##Installation and Setup
 
+## Installation and Setup
+
+### Prerequisites
+Follow the requirements.txt file to make sure you have all of the necessities
+
+## How to Use the Program
+- Step 1- make sure all files are downloaded in the proper path structure
+- Step 2- on the main.ipynb file in Jupyter Notebook make sure to change what is explicitly stated (ex- filepath)
+- Step 3- the main.ipynb file should run and provide a working TV Show Decider
+
+
+
+**"I pledge my honor that I have abided by the Stevens Honor System."**
